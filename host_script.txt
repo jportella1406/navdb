@@ -1,0 +1,24 @@
+user simex sex
+bin
+lcd C:/Users/IOS/Desktop/NavDB/200
+cd /cae/rehost/config/config01/nav1
+prompt
+mput *
+cd /cae/rehost/config/config01/nav2
+mput *
+lcd C:/Users/IOS/Desktop/NavDB/550-700
+cd /cae/rehost/config/config01/nav1
+mput *
+cd /cae/rehost/config/config01/nav2
+mput *
+lcd C:/Users/IOS/Desktop/NavDB/550-700
+cd /cae/rehost/config/config01/nav1
+mput *
+cd /cae/rehost/config/config01/nav2
+mput *
+lcd C:/Users/IOS/Desktop/NavDB/900
+cd /cae/rehost/config/config01/nav1
+mput *
+cd /cae/rehost/config/config01/nav2
+mput *
+quit
