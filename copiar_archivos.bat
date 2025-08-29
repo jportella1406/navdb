@@ -2,7 +2,7 @@
 setlocal
 
 REM Ruta del archivo origen
-set "ORIGEN=C:\Users\josep\OneDrive\Desktop\UTP\2025\plantilla actualizada.docx"
+set "ORIGEN=C:\Users\simfinity\Desktop\NDB update for CRJ1\navDB-200"
 
 REM Recibir argumento como destino
 set "DESTINO=%~1"
