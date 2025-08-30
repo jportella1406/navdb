@@ -7,7 +7,7 @@ from actions import open_documentation
 from actions import update_navdb
 
 def create_main_ui(root):
-    root.title("USB Configuration Tool")
+    root.title("Navigation Database Update")
     root.geometry("1000x600")
     root.resizable(False, False)
     root.configure(bg="#f4f4f4")

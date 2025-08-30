@@ -169,8 +169,29 @@ def update_navdb():
     status_label.update()
 
     try:
+        backup_result = subprocess.run(
+            ["ndb_backup.bat"],
+            capture_output=True,
+            text=True,
+            shell=True
+        )
+        console.insert(tk.END, backup_result.stdout)
+        if backup_result.stderr:
+            console.insert(tk.END, "\n[ERROR]:\n" + backup_result.stderr)
+        if backup_result.returncode != 0:
+            status_label.config(foreground="#c0392b", text="❌ Error during backup. Aborting update.")
+            console.insert(tk.END, "\nAborting update due to backup error.\n")
+            console.config(state=tk.DISABLED)
+            transfer_button.config(state='normal')
+            return
+
+        status_label.config(foreground="#2980b9", text="⏳ Backing Up Navigation Database...")
+        status_label.update()
+        console.insert(tk.END, "Navigation Database Backup in progress...\n")
+        console.update()
+
         delete_result = subprocess.run(
-            ["delete_ndb.bat"],
+            ["ndb_delete.bat"],
             capture_output=True,
             text=True,
             shell=True
@@ -191,7 +212,7 @@ def update_navdb():
         console.update()
         
         result = subprocess.run(
-            ["update_ndb.bat"],
+            ["ndb_update.bat"],
             capture_output=True,
             text=True,
             shell=True
