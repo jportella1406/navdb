@@ -4,6 +4,7 @@ from actions import transfer_to_usb, pick_usb_drive, register_widgets
 from style import apply_styles
 from actions import transfer_to_usb, pick_usb_drive, backup_files
 from actions import open_documentation
+from actions import update_navdb
 
 def create_main_ui(root):
     root.title("USB Configuration Tool")
@@ -39,7 +40,7 @@ def create_main_ui(root):
     usb_entry.pack(anchor='w', fill=tk.X, pady=(0, 5))
     transfer_btn = ttk.Button(left_frame, text="Transfer files to USB", command=transfer_to_usb, style="Rounded.TButton")
     transfer_btn.pack(anchor='w', fill=tk.X, pady=5) 
-    ttk.Button(left_frame, text="Transfer files to all configurations", style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5)
+    ttk.Button(left_frame, text="Transfer files to all configurations", command=update_navdb, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5)
 
     # Frame derecho
     right_frame = ttk.Frame(main_frame)

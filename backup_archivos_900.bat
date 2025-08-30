@@ -8,7 +8,7 @@ REM Recibir argumento como destino
 set "DESTINO=C:\Users\simfinity\Desktop\NDB update for CRJ1\navDB-900"
 
 REM Copiar archivo
-echo Copiando archivo a: %DESTINO%
+echo Copying files to: %DESTINO%
 copy /Y "%ORIGEN%\fmc_4200_tcpram.bin" "%DESTINO%\" >nul
 copy /Y "%ORIGEN%\fmc_4200_nvram.bin" "%DESTINO%\" >nul
 copy /Y "%ORIGEN%\fmc_4200_flash.rle" "%DESTINO%\" >nul
