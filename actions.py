@@ -18,6 +18,8 @@ def register_widgets(entry_widget, console_widget, status_widget, button_widget)
     status_label = status_widget
     transfer_button = button_widget
 
+
+
 def pick_usb_drive():
     """Allows the user to select a folder as the USB destination."""
     from tkinter import filedialog
@@ -28,6 +30,8 @@ def pick_usb_drive():
         usb_entry.insert(0, folder_selected)
         usb_entry.config(state='readonly')
         status_label.config(foreground="#2980b9", text="📁 USB drive selected.")
+
+
 
 def transfer_to_usb():
     """Executes the BAT script and displays the output in the console."""
@@ -76,8 +80,7 @@ def transfer_to_usb():
     # 🔓 Reactivar botón al final
     transfer_button.config(state='normal')
 
-import subprocess
-import tkinter as tk
+
 
 def backup_files():
     """Executes the backup scripts 200 and 900 sequentially and displays the output in the console."""
@@ -127,6 +130,7 @@ def backup_files():
     console.config(state=tk.DISABLED)
 
 
+
 def open_documentation():
     """Opens the documentation .docx file with the system's default program."""
     doc_path = os.path.abspath("Documentation\Programa para Navigation database CRJ.pdf")
@@ -144,12 +148,14 @@ def open_documentation():
         console.config(state=tk.DISABLED)
 
 
+
 def register_widgets(entry_widget, console_widget, status_widget, button_widget):
     global usb_entry, console, status_label, transfer_button, progressbar
     usb_entry = entry_widget
     console = console_widget
     status_label = status_widget
     transfer_button = button_widget
+    
     
 
 def update_navdb():
@@ -163,6 +169,27 @@ def update_navdb():
     status_label.update()
 
     try:
+        delete_result = subprocess.run(
+            ["delete_ndb.bat"],
+            capture_output=True,
+            text=True,
+            shell=True
+        )
+        console.insert(tk.END, delete_result.stdout)
+        if delete_result.stderr:
+            console.insert(tk.END, "\n[ERROR]:\n" + delete_result.stderr)
+        if delete_result.returncode != 0:
+            status_label.config(foreground="#c0392b", text="❌ Error during deletion. Aborting update.")
+            console.insert(tk.END, "\nAborting update due to deletion error.\n")
+            console.config(state=tk.DISABLED)
+            transfer_button.config(state='normal')
+            return
+
+        status_label.config(foreground="#2980b9", text="⏳ Updating Navigation Database...")
+        status_label.update()
+        console.insert(tk.END, "Navigation Database Update in progress...\n")
+        console.update()
+        
         result = subprocess.run(
             ["update_ndb.bat"],
             capture_output=True,
