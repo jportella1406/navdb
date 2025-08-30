@@ -146,10 +146,12 @@ def open_documentation():
 def update_navdb():
     """Executes the BAT script to update the navdb in all configurations and displays the output in the console."""
     status_label.config(foreground="#2980b9", text="⏳ Updating Navigation Database...")
+    status_label.update()
 
     transfer_button.config(state='disabled')
     console.config(state=tk.NORMAL)
     console.insert(tk.END, "Navigation Database Update in progress...\n")
+    status_label.update()
 
     try:
         result = subprocess.run(
