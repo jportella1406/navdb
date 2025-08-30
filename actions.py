@@ -49,7 +49,7 @@ def transfer_to_usb():
 
     try:
         result = subprocess.run(
-            ["copiar_archivos.bat", destino],
+            ["copiar_archivos.bat", destination],
             capture_output=True,
             text=True,
             shell=True
