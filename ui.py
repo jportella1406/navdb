@@ -54,5 +54,11 @@ def create_main_ui(root):
     status_label = ttk.Label(right_frame, text="", font=("Segoe UI", 10, "italic"))
     status_label.pack(anchor='w', pady=(0, 5))
 
+    status_frame = ttk.Frame(right_frame)
+    status_frame.pack(anchor='w', pady=(0, 5))
+
+    status_label = ttk.Label(status_frame, text="", font=("Segoe UI", 10, "italic"))
+    status_label.pack(side=tk.LEFT)
+
     # Registrar widgets globales para uso en actions.py
     register_widgets(usb_entry, console, status_label, transfer_btn)

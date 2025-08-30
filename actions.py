@@ -8,6 +8,7 @@ usb_entry = None
 console = None
 status_label = None
 transfer_button = None
+progressbar = None
 
 def register_widgets(entry_widget, console_widget, status_widget, button_widget):
     """Registers references to external widgets for global manipulation."""
@@ -142,6 +143,14 @@ def open_documentation():
         console.insert(tk.END, f"[ERROR opening documentation]: {e}\n")
         console.config(state=tk.DISABLED)
 
+
+def register_widgets(entry_widget, console_widget, status_widget, button_widget):
+    global usb_entry, console, status_label, transfer_button, progressbar
+    usb_entry = entry_widget
+    console = console_widget
+    status_label = status_widget
+    transfer_button = button_widget
+    
 
 def update_navdb():
     """Executes the BAT script to update the navdb in all configurations and displays the output in the console."""
