@@ -5,6 +5,7 @@ from style import apply_styles
 from actions import transfer_to_usb, pick_usb_drive, backup_files
 from actions import open_documentation
 from actions import update_navdb
+from actions import restore_navdb
 
 def create_main_ui(root):
     root.title("Navigation Database Update")

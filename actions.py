@@ -156,7 +156,47 @@ def register_widgets(entry_widget, console_widget, status_widget, button_widget)
     status_label = status_widget
     transfer_button = button_widget
     
-    
+
+def restore_navdb():
+    """Executes the BAT script to restore the navdb in all configurations and displays the output in the console."""
+    status_label.config(foreground="#2980b9", text="⏳ Restoring Navigation Database...")
+    status_label.update()
+
+    transfer_button.config(state='disabled')
+    console.config(state=tk.NORMAL)
+    console.insert(tk.END, "Navigation Database Restore in progress...\n")
+    status_label.update()
+
+    try:
+        restore_result = subprocess.run(
+            ["ndb_restore.bat"],
+            capture_output=True,
+            text=True,
+            shell=True
+        )
+        console.insert(tk.END, restore_result.stdout)
+        if restore_result.stderr:
+            console.insert(tk.END, "\n[ERROR]:\n" + restore_result.stderr)
+        if restore_result.returncode != 0:
+            status_label.config(foreground="#c0392b", text="❌ Error during restore. Aborting operation.")
+            console.insert(tk.END, "\nAborting restore due to error.\n")
+            console.config(state=tk.DISABLED)
+            transfer_button.config(state='normal')
+            return
+
+        status_label.config(foreground="#27ae60", text="✔ Navigation Database restored successfully.")
+        console.insert(tk.END, "Navigation Database Restore completed successfully.\n")
+        console.update()
+
+    except Exception as e:
+        console.insert(tk.END, f"\n[EXCEPTION]: {e}\n")
+        status_label.config(foreground="#c0392b", text="❌ Exception occurred while restoring the database.")
+
+    console.insert(tk.END, "\n--- END RESTORE ---\n")
+    console.see(tk.END)
+    console.config(state='normal')
+
+
 
 def update_navdb():
     """Executes the BAT script to update the navdb in all configurations and displays the output in the console."""
