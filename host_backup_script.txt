@@ -1,40 +1,44 @@
 user simex sex
 bin
-echo "Backing up 200 files"
-cd /cae/rehost/config/config01/nav1
 prompt
-cp fmc_4200_flash.rle /cae/backup/navdb/nav1/200
-cp fmc_4200_nvram.bin /cae/backup/navdb/nav1/200
-cp fmc_4200_tcpram.bin /cae/backup/navdb/nav1/200
+lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\200\nav1
+cd /cae/rehost/config/config01/nav1
+get fmc_4200_flash.rle 
+get fmc_4200_nvram.bin 
+get fmc_4200_tcpram.bin
+lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\200\nav2
 cd /cae/rehost/config/config01/nav2
-cp fmc_4200_flash.rle /cae/backup/navdb/nav2/200
-cp fmc_4200_nvram.bin /cae/backup/navdb/nav2/200
-cp fmc_4200_tcpram.bin /cae/backup/navdb/nav2/200
-echo "Backing up 550 files"
+get fmc_4200_flash.rle 
+get fmc_4200_nvram.bin 
+get fmc_4200_tcpram.bin
+lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\550\nav1
 cd /cae/rehost/config/config24/nav1
-cp fmc_4200_flash.rle /cae/backup/navdb/nav1/200
-cp fmc_4200_nvram.bin /cae/backup/navdb/nav1/200
-cp fmc_4200_tcpram.bin /cae/backup/navdb/nav1/200
+get fmc_4200_flash.rle 
+get fmc_4200_nvram.bin 
+get fmc_4200_tcpram.bin
+lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\550\nav2
 cd /cae/rehost/config/config24/nav2
-cp fmc_4200_flash.rle /cae/backup/navdb/nav2/200
-cp fmc_4200_nvram.bin /cae/backup/navdb/nav2/200
-cp fmc_4200_tcpram.bin /cae/backup/navdb/nav2/200
-echo "Backing up 700 files"
+get fmc_4200_flash.rle 
+get fmc_4200_nvram.bin 
+get fmc_4200_tcpram.bin
+lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\700\nav1
 cd /cae/rehost/config/config23/nav1
-cp fmc_4200_flash.rle /cae/backup/navdb/nav1/200
-cp fmc_4200_nvram.bin /cae/backup/navdb/nav1/200
-cp fmc_4200_tcpram.bin /cae/backup/navdb/nav1/200
-cd /cae/rehost/config/config23/nav2
-cp fmc_4200_flash.rle /cae/backup/navdb/nav2/200
-cp fmc_4200_nvram.bin /cae/backup/navdb/nav2/200
-cp fmc_4200_tcpram.bin /cae/backup/navdb/nav2/200
-echo "Backing up 900 files"
+get fmc_4200_flash.rle 
+get fmc_4200_nvram.bin 
+get fmc_4200_tcpram.bin
+lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\700\nav2
+cd /cae/rehost/config/config24/nav2
+get fmc_4200_flash.rle 
+get fmc_4200_nvram.bin 
+get fmc_4200_tcpram.bin
+lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\900\nav1
 cd /cae/rehost/config/config40/nav1
-cp fmc_4200_flash.rle /cae/backup/navdb/nav1/200
-cp fmc_4200_nvram.bin /cae/backup/navdb/nav1/200
-cp fmc_4200_tcpram.bin /cae/backup/navdb/nav1/200
+get fmc_4200_flash.rle 
+get fmc_4200_nvram.bin 
+get fmc_4200_tcpram.bin
+lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\900\nav2
 cd /cae/rehost/config/config40/nav2
-cp fmc_4200_flash.rle /cae/backup/navdb/nav2/200
-cp fmc_4200_nvram.bin /cae/backup/navdb/nav2/200
-cp fmc_4200_tcpram.bin /cae/backup/navdb/nav2/200
+get fmc_4200_flash.rle 
+get fmc_4200_nvram.bin 
+get fmc_4200_tcpram.bin
 quit

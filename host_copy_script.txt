@@ -1,26 +1,22 @@
 user simex sex
 bin
-echo "Updating 200 configuration"
-lcd C:/Users/IOS/Desktop/NavDB/200
-cd /cae/rehost/config/config01/nav1
 prompt
+lcd C:/Users/ios1/Desktop/NavDB/NavDB_CRJ1/navDB-200
+cd /cae/rehost/config/config01/nav1
 mput *
 cd /cae/rehost/config/config01/nav2
 mput *
-echo "Updating 550 configuration"
-lcd C:/Users/IOS/Desktop/NavDB/550-700
+lcd C:/Users/ios1/Desktop/NavDB/NavDB_CRJ1/navDB-550-700
 cd /cae/rehost/config/config24/nav1
 mput *
 cd /cae/rehost/config/config24/nav2
 mput *
-echo "Updating 700 configuration"
-lcd C:/Users/IOS/Desktop/NavDB/550-700
+lcd C:/Users/ios1/Desktop/NavDB/NavDB_CRJ1/navDB-550-700
 cd /cae/rehost/config/config23/nav1
 mput *
 cd /cae/rehost/config/config23/nav2
 mput *
-echo "Updating 900 configuration"
-lcd C:/Users/IOS/Desktop/NavDB/900
+lcd C:/Users/ios1/Desktop/NavDB/NavDB_CRJ1/navDB-900
 cd /cae/rehost/config/config40/nav1
 mput *
 cd /cae/rehost/config/config40/nav2

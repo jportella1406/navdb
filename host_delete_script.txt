@@ -1,40 +1,36 @@
 user simex sex
 bin
-echo "Deleting 200 files"
-cd /cae/rehost/config/config01/nav1
 prompt
-del fmc_4200_flash.rle
-del fmc_4200_nvram.bin
-del fmc_4200_tcpram.bin
+cd /cae/rehost/config/config01/nav1
+delete fmc_4200_flash.rle
+delete fmc_4200_nvram.bin
+delete fmc_4200_tcpram.bin
 cd /cae/rehost/config/config01/nav2
-del fmc_4200_flash.rle
-del fmc_4200_nvram.bin
-del fmc_4200_tcpram.bin
-echo "Deleting 550 files"
+delete fmc_4200_flash.rle
+delete fmc_4200_nvram.bin
+delete fmc_4200_tcpram.bin
 cd /cae/rehost/config/config24/nav1
-del fmc_4200_flash.rle
-del fmc_4200_nvram.bin
-del fmc_4200_tcpram.bin
+delete fmc_4200_flash.rle
+delete fmc_4200_nvram.bin
+delete fmc_4200_tcpram.bin
 cd /cae/rehost/config/config24/nav2
-del fmc_4200_flash.rle
-del fmc_4200_nvram.bin
-del fmc_4200_tcpram.bin
-echo "Deleting 700 files"
+delete fmc_4200_flash.rle
+delete fmc_4200_nvram.bin
+delete fmc_4200_tcpram.bin
 cd /cae/rehost/config/config23/nav1
-del fmc_4200_flash.rle
-del fmc_4200_nvram.bin
-del fmc_4200_tcpram.bin
+delete fmc_4200_flash.rle
+delete fmc_4200_nvram.bin
+delete fmc_4200_tcpram.bin
 cd /cae/rehost/config/config23/nav2
-del fmc_4200_flash.rle
-del fmc_4200_nvram.bin
-del fmc_4200_tcpram.bin
-echo "Deleting 900 files"
+delete fmc_4200_flash.rle
+delete fmc_4200_nvram.bin
+delete fmc_4200_tcpram.bin
 cd /cae/rehost/config/config40/nav1
-del fmc_4200_flash.rle
-del fmc_4200_nvram.bin
-del fmc_4200_tcpram.bin
+delete fmc_4200_flash.rle
+delete fmc_4200_nvram.bin
+delete fmc_4200_tcpram.bin
 cd /cae/rehost/config/config40/nav2
-del fmc_4200_flash.rle
-del fmc_4200_nvram.bin
-del fmc_4200_tcpram.bin
+delete fmc_4200_flash.rle
+delete fmc_4200_nvram.bin
+delete fmc_4200_tcpram.bin
 quit
