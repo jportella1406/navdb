@@ -47,7 +47,7 @@ def create_main_ui(root):
     # usb_entry.pack(anchor='w', fill=tk.X, pady=(0, 5))
     # transfer_btn = ttk.Button(left_frame, text="Transfer files to USB", command=transfer_to_usb, style="Rounded.TButton")
     # transfer_btn.pack(anchor='w', fill=tk.X, pady=5)
-    ttk.Button(left_frame, text="Restore files", command=backup_files, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5) 
+    ttk.Button(left_frame, text="Restore files", command=restore_navdb, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5) 
     ttk.Button(left_frame, text="Update all configurations", command=update_navdb, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5)
 
     # Frame derecho
