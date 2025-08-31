@@ -7,7 +7,7 @@ from actions import open_documentation
 from actions import update_navdb
 
 def create_main_ui(root):
-    root.title("USB Configuration Tool")
+    root.title("Navigation Database Update")
     root.geometry("1000x600")
     root.resizable(False, False)
     root.configure(bg="#f4f4f4")
@@ -17,10 +17,16 @@ def create_main_ui(root):
     # Menú superior
     menubar = Menu(root)
     help_menu = Menu(menubar, tearoff=0)
-    help_menu.add_command(label="Documentation", command=open_documentation)
+    help_menu.add_command(label="Open the procedure how to update the navigation database", command=open_documentation)
 
-    for label in ["File", "Device", "Tools"]:
-        menubar.add_cascade(label=label, menu=Menu(menubar, tearoff=0))
+    file_menu = Menu(menubar, tearoff=0)
+    file_menu.add_command(label="Salir", command=root.quit)
+    menubar.add_cascade(label="File", menu=file_menu)
+   
+   #Esto fue comentado para poder usar las otras pestañas en el futuro
+   # for label in ["Device", "Tools"]:
+   #     menubar.add_cascade(label=label, menu=Menu(menubar, tearoff=0))
+
     menubar.add_cascade(label="Help", menu=help_menu)
     root.config(menu=menubar)
 
