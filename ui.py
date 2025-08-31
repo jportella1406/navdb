@@ -39,13 +39,14 @@ def create_main_ui(root):
     left_frame.pack(side=tk.LEFT, fill=tk.Y, padx=20, pady=20)
     ttk.Label(left_frame, text="Actions", font=("Segoe UI", 11, "bold")).pack(anchor='w', pady=(0, 10))
 
-    # Botones y entrada
-    ttk.Button(left_frame, text="Backup files", command=backup_files, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5)
-    ttk.Button(left_frame, text="Pick USB Drive", command=pick_usb_drive, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=(0, 5))
-    usb_entry = ttk.Entry(left_frame, width=40, state='readonly', font=("Segoe UI", 9))
-    usb_entry.pack(anchor='w', fill=tk.X, pady=(0, 5))
-    transfer_btn = ttk.Button(left_frame, text="Transfer files to USB", command=transfer_to_usb, style="Rounded.TButton")
-    transfer_btn.pack(anchor='w', fill=tk.X, pady=5) 
+    #### Botones y entradas ####
+    # Ya no son necesarios estos botones
+    # ttk.Button(left_frame, text="Pick USB Drive", command=pick_usb_drive, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=(0, 5))
+    # usb_entry = ttk.Entry(left_frame, width=40, state='readonly', font=("Segoe UI", 9))
+    # usb_entry.pack(anchor='w', fill=tk.X, pady=(0, 5))
+    # transfer_btn = ttk.Button(left_frame, text="Transfer files to USB", command=transfer_to_usb, style="Rounded.TButton")
+    # transfer_btn.pack(anchor='w', fill=tk.X, pady=5)
+    ttk.Button(left_frame, text="Restore files", command=backup_files, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5) 
     ttk.Button(left_frame, text="Update all configurations", command=update_navdb, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5)
 
     # Frame derecho
@@ -67,4 +68,4 @@ def create_main_ui(root):
     status_label.pack(side=tk.LEFT)
 
     # Registrar widgets globales para uso en actions.py
-    register_widgets(usb_entry, console, status_label, transfer_btn)
+    register_widgets(None, console, status_label, None)
