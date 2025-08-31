@@ -18,7 +18,7 @@ set "NN=%dt:~10,2%"
 set "SS=%dt:~12,2%"
 set "STAMP=%YYYY%-%MM%-%DD%_%HH%-%NN%-%SS%"
 
-ftp -n -s:host_copy_script.txt %CAE_HOST% > "%LOGDIR%\update_%STAMP%.log" 2>&1
+ftp -n -s:host_update_script.txt %CAE_HOST% > "%LOGDIR%\update_%STAMP%.log" 2>&1
 
 if errorlevel 1 (
   echo [ERROR] Fallo el FTP. Revisa update_%STAMP%.log
