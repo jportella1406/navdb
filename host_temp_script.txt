@@ -1,0 +1,7 @@
+user simex sex
+bin
+prompt
+lcd C:/Users/ios1/Desktop/NavDB/Temp
+cd /cae/rehost/dbu
+mput *
+quit

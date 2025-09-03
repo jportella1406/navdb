@@ -157,6 +157,96 @@ def register_widgets(entry_widget, console_widget, status_widget, button_widget)
     #transfer_button = button_widget
     
 
+
+def generate_label(folder):
+    """
+    Reads the filenames in a folder,
+    ignores 'crate.xml',
+    takes the first 7 characters of the first valid file,
+    and writes that value to 'label.txt' with 4 spaces at the end.
+    Also prints the label in the app console.
+    """
+    try:
+        if not os.path.exists(folder):
+            console.config(state=tk.NORMAL)
+            console.insert(tk.END, f"Folder does not exist: {folder}\n")
+            console.config(state=tk.DISABLED)
+            return
+
+        files = os.listdir(folder)
+
+        label = None
+        for file in files:
+            if os.path.isfile(os.path.join(folder, file)):
+                if file.lower() == "crate.xml":
+                    continue  # ignore crate.xml
+                label = file[:7]
+                break
+
+        if label:
+            with open(os.path.join(folder, "label.txt"), "w", encoding="utf-8") as f:
+                f.write(str(label) + "    ")
+            console.config(state=tk.NORMAL)
+            console.insert(tk.END, f"Label found: {label}\nFile 'label.txt' generated successfully.\n")
+            console.config(state=tk.DISABLED)
+        else:
+            console.config(state=tk.NORMAL)
+            console.insert(tk.END, "No valid file found.\n")
+            console.config(state=tk.DISABLED)
+
+    except Exception as e:
+        console.config(state=tk.NORMAL)
+        console.insert(tk.END, f"Error generating label: {e}\n")
+        console.config(state=tk.DISABLED)
+
+
+
+
+def copy_temp():
+    """Executes the BAT script to copy files from Temp to the FMS repository and displays the output in the console."""
+    status_label.config(foreground="#2980b9", text="⏳ Restoring Navigation Database...")
+    status_label.update()
+
+    target_folder = r"C:\Users\josep\Desktop\CAE"
+    #target_folder = r"C:\Users\ios1\Desktop\NavDB\Temp"
+    generate_label(target_folder)
+
+    #transfer_button.config(state='disabled')
+    console.config(state=tk.NORMAL)
+    console.insert(tk.END, "Copying Temp folder to FMS repository to update the navigation database from the CDU...\n")
+    status_label.update()
+
+    try:
+        restore_result = subprocess.run(
+            ["copy_temp.bat"],
+            capture_output=True,
+            text=True,
+            shell=True
+        )
+        console.insert(tk.END, restore_result.stdout)
+        if restore_result.stderr:
+            console.insert(tk.END, "\n[ERROR]:\n" + restore_result.stderr)
+        if restore_result.returncode != 0:
+            status_label.config(foreground="#c0392b", text="❌ Error during copy to temp. Aborting operation.")
+            console.insert(tk.END, "\nAborting copy from temp due to error.\n")
+            console.config(state=tk.DISABLED)
+            #transfer_button.config(state='normal')
+            return
+
+        status_label.config(foreground="#27ae60", text="✔ Files copied from Temp successfully.")
+        console.insert(tk.END, "Files copied from Temp successfully.\n")
+        console.update()
+
+    except Exception as e:
+        console.insert(tk.END, f"\n[EXCEPTION]: {e}\n")
+        status_label.config(foreground="#c0392b", text="❌ Exception occurred while copying files from Temp.")
+
+    console.insert(tk.END, "\n--- END COPY FROM TEMP ---\n")
+    console.see(tk.END)
+    console.config(state='normal')
+
+
+
 def restore_navdb():
     """Executes the BAT script to restore the navdb in all configurations and displays the output in the console."""
     status_label.config(foreground="#2980b9", text="⏳ Restoring Navigation Database...")

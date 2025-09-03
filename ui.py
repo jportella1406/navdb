@@ -6,6 +6,7 @@ from actions import transfer_to_usb, pick_usb_drive, backup_files
 from actions import open_documentation
 from actions import update_navdb
 from actions import restore_navdb
+from actions import copy_temp
 
 def create_main_ui(root):
     root.title("Navigation Database Update")
@@ -47,6 +48,9 @@ def create_main_ui(root):
     # usb_entry.pack(anchor='w', fill=tk.X, pady=(0, 5))
     # transfer_btn = ttk.Button(left_frame, text="Transfer files to USB", command=transfer_to_usb, style="Rounded.TButton")
     # transfer_btn.pack(anchor='w', fill=tk.X, pady=5)
+    
+    ttk.Button(left_frame, text="Copy files from Temp", command=copy_temp, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=(0, 5))
+    
     ttk.Button(left_frame, text="Restore files", command=restore_navdb, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5) 
     ttk.Button(left_frame, text="Update all configurations", command=update_navdb, style="Rounded.TButton").pack(anchor='w', fill=tk.X, pady=5)
 
