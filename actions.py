@@ -16,7 +16,7 @@ def register_widgets(entry_widget, console_widget, status_widget, button_widget)
     usb_entry = entry_widget
     console = console_widget
     status_label = status_widget
-    transfer_button = button_widget
+    #transfer_button = button_widget
 
 
 
@@ -38,7 +38,7 @@ def transfer_to_usb():
     destination = usb_entry.get()
 
     # 🔒 Desactivar botón
-    transfer_button.config(state='disabled')
+    #transfer_button.config(state='disabled')
     status_label.config(foreground="#2980b9", text="⏳ Copying file...")
 
     if not os.path.isdir(destination):
@@ -46,7 +46,7 @@ def transfer_to_usb():
         console.config(state=tk.NORMAL)
         console.insert(tk.END, "Invalid path. Please select a valid folder.\n")
         console.config(state=tk.DISABLED)
-        transfer_button.config(state='normal')  # 🔓 Reactivar
+        #transfer_button.config(state='normal')  # 🔓 Reactivar
         return
 
     console.config(state=tk.NORMAL)
@@ -78,7 +78,7 @@ def transfer_to_usb():
     console.config(state=tk.DISABLED)
 
     # 🔓 Reactivar botón al final
-    transfer_button.config(state='normal')
+    #transfer_button.config(state='normal')
 
 
 
@@ -154,7 +154,7 @@ def register_widgets(entry_widget, console_widget, status_widget, button_widget)
     usb_entry = entry_widget
     console = console_widget
     status_label = status_widget
-    transfer_button = button_widget
+    #transfer_button = button_widget
     
 
 def restore_navdb():
@@ -162,7 +162,7 @@ def restore_navdb():
     status_label.config(foreground="#2980b9", text="⏳ Restoring Navigation Database...")
     status_label.update()
 
-    transfer_button.config(state='disabled')
+    #transfer_button.config(state='disabled')
     console.config(state=tk.NORMAL)
     console.insert(tk.END, "Navigation Database Restore in progress...\n")
     status_label.update()
@@ -181,7 +181,7 @@ def restore_navdb():
             status_label.config(foreground="#c0392b", text="❌ Error during restore. Aborting operation.")
             console.insert(tk.END, "\nAborting restore due to error.\n")
             console.config(state=tk.DISABLED)
-            transfer_button.config(state='normal')
+            #transfer_button.config(state='normal')
             return
 
         status_label.config(foreground="#27ae60", text="✔ Navigation Database restored successfully.")
@@ -203,7 +203,7 @@ def update_navdb():
     status_label.config(foreground="#2980b9", text="⏳ Updating Navigation Database...")
     status_label.update()
 
-    transfer_button.config(state='disabled')
+    #transfer_button.config(state='disabled')
     console.config(state=tk.NORMAL)
     console.insert(tk.END, "Navigation Database Update in progress...\n")
     status_label.update()
@@ -222,7 +222,7 @@ def update_navdb():
             status_label.config(foreground="#c0392b", text="❌ Error during backup. Aborting update.")
             console.insert(tk.END, "\nAborting update due to backup error.\n")
             console.config(state=tk.DISABLED)
-            transfer_button.config(state='normal')
+            #transfer_button.config(state='normal')
             return
 
         status_label.config(foreground="#2980b9", text="⏳ Backing Up Navigation Database...")
@@ -243,7 +243,7 @@ def update_navdb():
             status_label.config(foreground="#c0392b", text="❌ Error during deletion. Aborting update.")
             console.insert(tk.END, "\nAborting update due to deletion error.\n")
             console.config(state=tk.DISABLED)
-            transfer_button.config(state='normal')
+            #transfer_button.config(state='normal')
             return
 
         status_label.config(foreground="#2980b9", text="⏳ Updating Navigation Database...")
@@ -274,4 +274,4 @@ def update_navdb():
     console.insert(tk.END, "\n--- END UPDATE ---\n")
     console.see(tk.END)
     console.config(state=tk.DISABLED)
-    transfer_button.config(state='normal')
+    #transfer_button.config(state='normal')
