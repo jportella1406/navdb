@@ -2,7 +2,7 @@
 setlocal enabledelayedexpansion
 
 set CAE_HOST=10.102.80.1
-set "LOGDIR=C:\Users\ios1\Desktop\CAE\NavDb\logs"
+set "LOGDIR=C:\Users\ios1\Desktop\NavDb\logs"
 if not exist "%LOGDIR%" mkdir "%LOGDIR%"
 
 echo Starting FTP Process...

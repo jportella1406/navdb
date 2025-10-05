@@ -2,6 +2,8 @@ import os
 import tkinter as tk
 import subprocess
 import platform
+from pathlib import Path
+import re
 
 # Referencias globales compartidas
 usb_entry = None
@@ -39,10 +41,10 @@ def transfer_to_usb():
 
     # 🔒 Desactivar botón
     #transfer_button.config(state='disabled')
-    status_label.configure(text_color="#2980b9", text="⏳ Copying file...")
+    status_label.configure(text_color="#2980b9", text="Copying file...")
 
     if not os.path.isdir(destination):
-        status_label.configure(text_color="#c0392b", text="❌ Invalid path. Please select a valid folder.")
+        status_label.configure(text_color="#c0392b", text="Invalid path. Please select a valid folder.")
         console.configure(state=tk.NORMAL)
         console.insert(tk.END, "Invalid path. Please select a valid folder.\n")
         console.configure(state=tk.DISABLED)
@@ -63,15 +65,15 @@ def transfer_to_usb():
         console.insert(tk.END, result.stdout)
         if result.stderr:
             console.insert(tk.END, "\n[ERROR]:\n" + result.stderr)
-            status_label.configure(text_color="#c0392b", text="❌ Error during copy.")
+            status_label.configure(text_color="#c0392b", text="Error during copy.")
         elif result.returncode == 0:
             status_label.configure(text_color="#27ae60", text="✔ File copied successfully.")
         else:
-            status_label.configure(text_color="#c0392b", text="⚠️ Finished with error code.")
+            status_label.configure(text_color="#c0392b", text="Finished with error code.")
 
     except Exception as e:
         console.insert(tk.END, f"\n[EXCEPTION]: {e}\n")
-        status_label.configure(text_color="#c0392b", text="❌ Exception occurred while executing the script.")
+        status_label.configure(text_color="#c0392b", text="Exception occurred while executing the script.")
 
     console.insert(tk.END, "\n--- END ---\n")
     console.see(tk.END)
@@ -115,15 +117,15 @@ def backup_files():
         console.insert(tk.END, res900.stdout)
         if res900.stderr:
             console.insert(tk.END, "\n[ERROR 900]:\n" + res900.stderr)
-            status_label.configure(text_color="#c0392b", text="❌ Error during backup 900.")
+            status_label.configure(text_color="#c0392b", text="Error during backup 900.")
         elif res900.returncode == 0:
             status_label.configure(text_color="#27ae60", text="✔ Both backups completed successfully.")
         else:
-            status_label.configure(text_color="#c0392b", text="⚠️ Backup 900 finished with error code.")
+            status_label.configure(text_color="#c0392b", text="Backup 900 finished with error code.")
 
     except Exception as e:
         console.insert(tk.END, f"\n[EXCEPTION]: {e}\n")
-        status_label.configure(text_color="#c0392b", text="❌ Exception occurred while executing the backup.")
+        status_label.configure(text_color="#c0392b", text="Exception occurred while executing the backup.")
 
     console.insert(tk.END, "\n--- END BACKUP ---\n")
     console.see(tk.END)
@@ -158,46 +160,72 @@ def register_widgets(entry_widget, console_widget, status_widget, button_widget)
     
 
 
-def generate_label(folder):
+def create_label_txt(folder):
     """
-    Reads the filenames in a folder,
-    ignores 'crate.xml',
-    takes the first 7 characters of the first valid file,
-    and writes that value to 'label.txt' with 4 spaces at the end.
-    Also prints the label in the app console.
+    Replica la lógica del script navdb_update_crj4 para crear label.txt.
+    Busca 'VOL:' en archivos .db o 'VARIANT:' en archivos .pdb, 
+    y genera el archivo 'label.txt' con 4 espacios al final.
+    No usa archivos temporales y respeta el formato original.
     """
     try:
-        if not os.path.exists(folder):
-            console.configure(state=tk.NORMAL)
-            console.insert(tk.END, f"Folder does not exist: {folder}\n")
-            console.configure(state=tk.DISABLED)
+        folder_path = Path(folder)
+        if not folder_path.exists():
+            console.configure(state='normal')
+            console.insert('end', f"Folder does not exist: {folder}\n")
+            console.configure(state='disabled')
             return
 
-        files = os.listdir(folder)
+        ndb_label = None
+        pdb_label = None
 
-        label = None
-        for file in files:
-            if os.path.isfile(os.path.join(folder, file)):
-                if file.lower() == "crate.xml":
-                    continue  # ignore crate.xml
-                label = file[:7]
+        # Buscar en archivos .db
+        for db_file in folder_path.glob("*.db"):
+            try:
+                text = db_file.read_text(errors="ignore")
+            except Exception:
+                continue
+            match = re.search(r"VOL:([^:]+)\s*:", text)
+            if match:
+                ndb_label = match.group(1).strip()
                 break
 
-        if label:
-            with open(os.path.join(folder, "label.txt"), "w", encoding="utf-8") as f:
-                f.write(str(label) + "    ")
-            console.configure(state=tk.NORMAL)
-            console.insert(tk.END, f"Label found: {label}\nFile 'label.txt' generated successfully.\n")
-            console.configure(state=tk.DISABLED)
+        # Si no se encontró, buscar en .pdb
+        if not ndb_label:
+            for pdb_file in folder_path.glob("*.pdb"):
+                try:
+                    text = pdb_file.read_text(errors="ignore")
+                except Exception:
+                    continue
+                match = re.search(r"VARIANT:([^:]+)\s*:", text)
+                if match:
+                    pdb_label = match.group(1).strip()
+                    break
+
+        label_txt = folder_path / "label.txt"
+
+        if ndb_label:
+            with open(label_txt, "w", encoding="utf-8") as f:
+                f.write(ndb_label + "    ")  # 4 espacios al final
+            console.configure(state='normal')
+            console.insert('end', f"Label found in .db file: {ndb_label}\nlabel.txt created successfully.\n")
+            console.configure(state='disabled')
+
+        elif pdb_label:
+            with open(label_txt, "w", encoding="utf-8") as f:
+                f.write(pdb_label + "    ")
+            console.configure(state='normal')
+            console.insert('end', f"Label found in .pdb file: {pdb_label}\nlabel.txt created successfully.\n")
+            console.configure(state='disabled')
+
         else:
-            console.configure(state=tk.NORMAL)
-            console.insert(tk.END, "No valid file found.\n")
-            console.configure(state=tk.DISABLED)
+            console.configure(state='normal')
+            console.insert('end', "No VOL: or VARIANT: label found in .db or .pdb files.\nlabel.txt was not created.\n")
+            console.configure(state='disabled')
 
     except Exception as e:
-        console.configure(state=tk.NORMAL)
-        console.insert(tk.END, f"Error generating label: {e}\n")
-        console.configure(state=tk.DISABLED)
+        console.configure(state='normal')
+        console.insert('end', f"Error creating label.txt: {e}\n")
+        console.configure(state='disabled')
 
 
 
@@ -209,7 +237,7 @@ def copy_temp():
 
     target_folder = r"C:\Users\josep\Desktop\CAE"
     #target_folder = r"C:\Users\ios1\Desktop\NavDB\Temp"
-    generate_label(target_folder)
+    create_label_txt(target_folder)
 
     #transfer_button.config(state='disabled')
     console.configure(state=tk.NORMAL)
@@ -227,7 +255,7 @@ def copy_temp():
         if copytemp_result.stderr:
             console.insert(tk.END, "\n[ERROR]:\n" + copytemp_result.stderr)
         if copytemp_result.returncode != 0:
-            status_label.configure(text_Color="#c0392b", text="❌ Error during copy to temp. Aborting operation.")
+            status_label.configure(text_Color="#c0392b", text="Error during copy to temp. Aborting operation.")
             console.insert(tk.END, "\nAborting copy from temp due to error.\n")
             console.configure(state=tk.DISABLED)
             #transfer_button.config(state='normal')
@@ -239,7 +267,7 @@ def copy_temp():
 
     except Exception as e:
         console.insert(tk.END, f"\n[EXCEPTION]: {e}\n")
-        status_label.configure(text_color="#c0392b", text="❌ Exception occurred while copying files from Temp.")
+        status_label.configure(text_color="#c0392b", text="Exception occurred while copying files from Temp.")
 
     console.insert(tk.END, "\n--- END COPY FROM TEMP ---\n")
     console.see(tk.END)
@@ -249,7 +277,7 @@ def copy_temp():
 
 def restore_navdb():
     """Executes the BAT script to restore the navdb in all configurations and displays the output in the console."""
-    status_label.configure(text_color="#2980b9", text="⏳ Restoring Navigation Database...")
+    status_label.configure(text_color="#2980b9", text="Restoring Navigation Database...")
     status_label.update()
 
     #transfer_button.config(state='disabled')
@@ -268,7 +296,7 @@ def restore_navdb():
         if restore_result.stderr:
             console.insert(tk.END, "\n[ERROR]:\n" + restore_result.stderr)
         if restore_result.returncode != 0:
-            status_label.configure(text_color="#c0392b", text="❌ Error during restore. Aborting operation.")
+            status_label.configure(text_color="#c0392b", text="Error during restore. Aborting operation.")
             console.insert(tk.END, "\nAborting restore due to error.\n")
             console.configure(state=tk.DISABLED)
             #transfer_button.config(state='normal')
@@ -280,7 +308,7 @@ def restore_navdb():
 
     except Exception as e:
         console.insert(tk.END, f"\n[EXCEPTION]: {e}\n")
-        status_label.configure(text_color="#c0392b", text="❌ Exception occurred while restoring the database.")
+        status_label.configure(text_color="#c0392b", text="Exception occurred while restoring the database.")
 
     console.insert(tk.END, "\n--- END RESTORE ---\n")
     console.see(tk.END)
@@ -290,7 +318,7 @@ def restore_navdb():
 
 def update_navdb():
     """Executes the BAT script to update the navdb in all configurations and displays the output in the console."""
-    status_label.configure(text_color="#2980b9", text="⏳ Updating Navigation Database...")
+    status_label.configure(text_color="#2980b9", text="Updating Navigation Database...")
     status_label.update()
 
     #transfer_button.config(state='disabled')
@@ -309,13 +337,13 @@ def update_navdb():
         if backup_result.stderr:
             console.insert(tk.END, "\n[ERROR]:\n" + backup_result.stderr)
         if backup_result.returncode != 0:
-            status_label.configure(text_color="#c0392b", text="❌ Error during backup. Aborting update.")
+            status_label.configure(text_color="#c0392b", text="Error during backup. Aborting update.")
             console.insert(tk.END, "\nAborting update due to backup error.\n")
             console.configure(state=tk.DISABLED)
             #transfer_button.config(state='normal')
             return
 
-        status_label.configure(text_color="#2980b9", text="⏳ Backing Up Navigation Database...")
+        status_label.configure(text_color="#2980b9", text="Backing Up Navigation Database...")
         status_label.update()
         console.insert(tk.END, "Navigation Database Backup in progress...\n")
         console.update()
@@ -330,13 +358,13 @@ def update_navdb():
         if delete_result.stderr:
             console.insert(tk.END, "\n[ERROR]:\n" + delete_result.stderr)
         if delete_result.returncode != 0:
-            status_label.configure(text_color="#c0392b", text="❌ Error during deletion. Aborting update.")
+            status_label.configure(text_color="#c0392b", text="Error during deletion. Aborting update.")
             console.insert(tk.END, "\nAborting update due to deletion error.\n")
             console.configure(state=tk.DISABLED)
             #transfer_button.config(state='normal')
             return
 
-        status_label.configure(text_color="#2980b9", text="⏳ Updating Navigation Database...")
+        status_label.configure(text_color="#2980b9", text="Updating Navigation Database...")
         status_label.update()
         console.insert(tk.END, "Navigation Database Update in progress...\n")
         console.update()
@@ -351,15 +379,15 @@ def update_navdb():
         console.insert(tk.END, result.stdout)
         if result.stderr:
             console.insert(tk.END, "\n[ERROR]:\n" + result.stderr)
-            status_label.configure(text_color="#c0392b", text="❌ Error during update.")
+            status_label.configure(text_color="#c0392b", text="Error during update.")
         elif result.returncode == 0:
             status_label.configure(text_color="#27ae60", text="✔ Navigation Database updated successfully.")
         else:
-            status_label.configure(text_color="#c0392b", text="⚠️ Finished with error code.")
+            status_label.configure(text_color="#c0392b", text="Finished with error code.")
 
     except Exception as e:
         console.insert(tk.END, f"\n[EXCEPTION]: {e}\n")
-        status_label.configure(text_color="#c0392b", text="❌ Exception occurred while executing the script.")
+        status_label.configure(text_color="#c0392b", text="Exception occurred while executing the script.")
 
     console.insert(tk.END, "\n--- END UPDATE ---\n")
     console.see(tk.END)
