@@ -118,7 +118,7 @@ def create_main_ui(root):
     ctk.CTkLabel(left_frame, text="Actions",
                  font=ctk.CTkFont(size=14, weight="bold")).pack(anchor='w', pady=(0, 10))
 
-    ctk.CTkButton(left_frame, text="Copy files from Temp", command=copy_temp)\
+    ctk.CTkButton(left_frame, text="Update loaded configuration", command=copy_temp)\
         .pack(anchor='w', fill=ctk.X, pady=(0, 5))
     ctk.CTkButton(left_frame, text="Restore files", command=restore_navdb)\
         .pack(anchor='w', fill=ctk.X, pady=5)

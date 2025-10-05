@@ -231,8 +231,7 @@ def create_label_txt(folder):
 
 
 def copy_temp():
-    """Executes the BAT script to copy files from Temp to the FMS repository and displays the output in the console."""
-    status_label.configure(text_color="#2980b9", text="⏳ Restoring Navigation Database...")
+    status_label.configure(text_color="#2980b9", text="Copy local files to FMS repository...")
     status_label.update()
 
     target_folder = r"C:\Users\josep\Desktop\CAE"
@@ -241,7 +240,7 @@ def copy_temp():
 
     #transfer_button.config(state='disabled')
     console.configure(state=tk.NORMAL)
-    console.insert(tk.END, "Copying Temp folder to FMS repository to update the navigation database from the CDU...\n")
+    console.insert(tk.END, "Copying local files to FMS repository to update the navigation database from the CDU...\n")
     status_label.update()
 
     try:
