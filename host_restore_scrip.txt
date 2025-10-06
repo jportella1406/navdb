@@ -1,28 +1,28 @@
 user simex sex
 bin
 prompt
-lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\200\nav1
+lcd C:\Users\ios1\Desktop\NavDb\backup\200\nav1
 cd /cae/rehost/config/config01/nav1
 mput *
-lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\200\nav2
+lcd C:\Users\ios1\Desktop\NavDb\backup\200\nav2
 cd /cae/rehost/config/config01/nav2
 mput *
-lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\550\nav1
+lcd C:\Users\ios1\Desktop\NavDb\backup\550\nav1
 cd /cae/rehost/config/config24/nav1
 mput *
-lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\550\nav2
+lcd C:\Users\ios1\Desktop\NavDb\backup\550\nav2
 cd /cae/rehost/config/config24/nav2
 mput *
-lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\700\nav1
+lcd C:\Users\ios1\Desktop\NavDb\backup\700\nav1
 cd /cae/rehost/config/config23/nav1
 mput *
-lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\700\nav2
+lcd C:\Users\ios1\Desktop\NavDb\backup\700\nav2
 cd /cae/rehost/config/config23/nav2
 mput *
-lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\900\nav1
+lcd C:\Users\ios1\Desktop\NavDb\backup\900\nav1
 cd /cae/rehost/config/config40/nav1
 mput *
-lcd C:\Users\ios1\Desktop\CAE\NavDb\backup\900\nav2
+lcd C:\Users\ios1\Desktop\NavDb\backup\900\nav2
 cd /cae/rehost/config/config40/nav2
 mput *
 quit
